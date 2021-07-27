@@ -14,8 +14,51 @@
 
 
 ## 2、css sprites含义及使用
+[css sprites与讲解实例](https://www.cnblogs.com/sharpest/p/6295137.html)
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    ul.Sprites{ margin:0 auto; border:1px solid #F00; width:300px; padding:10px;} 
+    ul.Sprites li{ height:24px; font-size:14px;line-height:24px; text-align:left; overflow:hidden} 
+    ul.Sprites li span{ float:left; width:17px;padding-top:5px;height:17px;overflow:hidden;background:url(ico.png) no-repeat} 
+    ul.Sprites li a{ padding-left:5px}
+
+    /* 引入背景拼接好的图标素材图片:给span设置css背景图片 */
+    ul.Sprites li span{ background: url(ico.png) no-repeat}
+
+    /* 再分别对不同span class设置对于图标背景定位具体值 */
+    /* 背景background-position有两个数值，前一个代表靠左距离值（可为正可为负），第二个数值代表靠上距离值（可为正可为负） */
+    /* 设置背景图片作为对应盒子对象背景后向左“拖动”62px，向上“拖动”32px开始显示此背景图标 */    
+    ul.Sprites li span.a1{ background-position: -62px -32px}
+    ul.Sprites li span.a2{ background-position: -86px -32px}
+    ul.Sprites li span.a3{ background-position: -110px -32px}
+    ul.Sprites li span.a4{ background-position: -133px -32px}
+    ul.Sprites li span.a5{ background-position: -158px -32px}
+  </style>
+</head>
+<body>
+  <ul class="Sprites"> 
+    <li><span class="a1"></span><a href="#">WORD文章标题</a></li> 
+    <li><span class="a2"></span><a href="#">PPT内容标题</a></li> 
+    <li><span class="a3"></span><a href="#">Excel内容标题</a></li> 
+    <li><span class="a4"></span><a href="#">PDF内容标题</a></li> 
+    <li><span class="a5"></span><a href="#">文本文档标题</a></li> 
+  </ul> 
+</body>
+</html>
+```
+|拼接图|页面效果图|
+|:--:|:--:|
+|![img](./imgs/ico.png)|![img](./imgs/inde.png)|
+
 `CSS Sprites`其实就是把网页中一些背景图片整合到一张图片文件中，再利用`CSS`的
-- `“backgroundimage”`，
+- `“background-image”`，
 - `“background- repeat”`，
 - `“background-position”`
 
@@ -25,6 +68,8 @@
 多的图片。
 
 ## 3、CSS中link和@import的区别
+[css link与import的区别是什么](https://www.php.cn/css-tutorial-470952.html)
+
 - (1) `link`属于`HTML`标签，而`@import`是`CSS`提供的
 - (2) 页面被加载的时，`link`会同时被加载，而`@import`被引用的`CSS`会等到引用它的 `CSS`文件被加载完再加载
 - (3) `import`只在`IE5`以上才能识别，而`link`是`HTML`标签，无兼容问题
@@ -59,3 +104,93 @@ readonly 规定输入字段为只读。input 内容会随着表单提交。
 无论设置 readonly 还是 disabled，通过 js 脚本都能更改 input 的 value。
 ```
 
+## css-transition
+[css-transition](https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Transitions/Using_CSS_transitions)，提供一种修改css属性时控制动画速度的方法，让属性变化成为一个持续一段时间的过程，而不是立即生效。
+
+[transition](https://developer.mozilla.org/zh-CN/docs/Web/CSS/transition)是以下属性的简写属性，
+- `transition-property`指定应用过渡属性的名称，不具有继承性
+- `transition-duration`属性以秒或毫秒为单位指定过渡动画所需的时间。默认值为 `0s` ，表示不出现过渡动画。
+- `transition-timing-function`属性用来描述这个中间值是怎样计算的。实质上，通过这个函数会建立一条加速度曲线，因此在整个`transition`变化过程中，变化速度可以不断改变。
+- `transition-delay`属性规定了在过渡效果开始作用之前需要等待的时间。
+```css
+/* Apply to 1 property */
+/* property name | duration */
+transition: margin-right 4s;
+
+/* property name | duration | delay */
+transition: margin-right 4s 1s;
+
+/* property name | duration | timing function */
+transition: margin-right 4s ease-in-out;
+
+/* property name | duration | timing function | delay */
+transition: margin-right 4s ease-in-out 1s;
+
+/* Apply to 2 properties */
+transition: margin-right 4s, color 1s;
+
+/* Apply to all changed properties */
+transition: all 0.5s ease-out;
+
+/* Global values */
+transition: inherit;
+transition: initial;
+transition: unset;
+
+/* Keyword values */
+transition-property: none; // 没有过渡动画
+transition-property: all; // 所有可被动画的属性都表现出过渡动画。
+transition-property: test_05; // 属性名称。由小写字母 a 到 z，数字 0 到 9，
+                              // 下划线（_）和破折号（-）。第一个非破折号字符不能是数字。
+                              // 同时，不能以两个破折号开头。
+transition-property: -specific;
+transition-property: sliding-vertically;
+
+transition-property: test1;
+transition-property: test1, animation4;
+transition-property: all, height, all;
+transition-property: all, -moz-specific, sliding;
+
+/* Global values */
+transition-property: inherit;
+transition-property: initial;
+transition-property: unset;
+
+
+/* <time> 值 */
+transition-duration: 6s;
+transition-duration: 120ms;
+transition-duration: 1s, 15s;
+transition-duration: 10s, 30s, 230ms;
+
+/* 全局值 */
+transition-duration: inherit;
+transition-duration: initial;
+transition-duration: unset;
+
+transition-timing-function: ease
+transition-timing-function: ease-in
+transition-timing-function: ease-out
+transition-timing-function: ease-in-out
+transition-timing-function: linear
+transition-timing-function: cubic-bezier(0.1, 0.7, 1.0, 0.1)
+transition-timing-function: step-start
+transition-timing-function: step-end
+transition-timing-function: steps(4, end)
+
+transition-timing-function: ease, step-start, cubic-bezier(0.1, 0.7, 1.0, 0.1)
+
+transition-timing-function: inherit
+
+/* <time>?值 */
+transition-delay: 3s;
+transition-delay: 2s, 4ms;
+
+/* 全局变量 */
+transition-delay: inherit;
+transition-delay: initial;
+transition-delay: unset;
+```
+
+#### 浏览器兼容性
+![img](./imgs/transition-1.png)

@@ -43,6 +43,10 @@ module.exports = {
         link: '/javascript-wd/'
       },
       {
+        text: 'JavaScript高级程序设计(第四版) - 学习笔记',
+        link: '/javascript-4v/'
+      },
+      {
         text: 'HTTP权威指南',
         link: '/http/'
       },
@@ -223,6 +227,7 @@ module.exports = {
             ['1-ES5/6-object.md', '第六节 object 对象'],
             ['1-ES5/7-function.md', '第七节 function 函数'],
             ['1-ES5/8-array.md', '第八节 array 数组'],
+            ['1-ES5/9-conclusion.md', '第九节 小结-♥'],
           ]
         },
         {
@@ -325,22 +330,38 @@ module.exports = {
           title: '第九章 浏览器模型',
           collapsable: true,
           children: [
-            ['BOM/1-intro.md', '第1节 浏览器模型概述 - ♥'],
-            ['BOM/2-window.md', '第2节 window对象 - ♥'],
-            ['BOM/3-ns.md', '第3节 Navigator 对象，Screen 对象'],
-            ['BOM/4-cookie.md', '第4节 Cookie  - ♥'],
-            ['BOM/5-xhr.md', '第5节 XMLHttpRequest 对象 - ♥'],
-            ['BOM/6-corsl.md', '第6节 同源限制 - 跨域汇总 - ♥'],
-            ['BOM/7-cors.md', '第7节 CORS 通信 - 根本解决方法 - ♥'],
-            ['BOM/8-storage.md', '第8节 Storage 接口 - ♥'],
-            ['BOM/9-history.md', '第9节 History 对象'],
-            ['BOM/10-luu.md', '第10节 Location 对象，URL 对象，URLSearchParams 对象'],
-            ['BOM/11-ab.md', '第11节 ArrayBuffer 对象，Blob 对象'],
-            ['BOM/12-fff.md', '第12节 File 对象，FileList 对象，FileReader 对象 - ♥'],
-            ['BOM/13-fd.md', '第13节 表单，FormData 对象 - ♥'],
-            ['BOM/14-IndexedDB.md', '第14节 IndexedDB API'],
-            ['BOM/15-webWorker.md', '第15节 Web Worker'],
-            ['BOM/16-code.md', '第16节 手撕代码  - ♥'],
+            ['9-BOM/1-intro.md', '第1节 浏览器模型概述 - ♥'],
+            ['9-BOM/2-window.md', '第2节 window对象 - ♥'],
+            ['9-BOM/3-ns.md', '第3节 Navigator 对象，Screen 对象'],
+            ['9-BOM/4-cookie.md', '第4节 Cookie  - ♥'],
+            ['9-BOM/5-xhr.md', '第5节 XMLHttpRequest 对象 - ♥'],
+            ['9-BOM/6-corsl.md', '第6节 同源限制 - 跨域汇总 - ♥'],
+            ['9-BOM/7-cors.md', '第7节 CORS 通信 - 根本解决方法 - ♥'],
+            ['9-BOM/8-storage.md', '第8节 Storage 接口 - ♥'],
+            ['9-BOM/9-history.md', '第9节 History 对象'],
+            ['9-BOM/10-luu.md', '第10节 Location 对象，URL 对象，URLSearchParams 对象'],
+            ['9-BOM/11-ab.md', '第11节 ArrayBuffer 对象，Blob 对象'],
+            ['9-BOM/12-fff.md', '第12节 File 对象，FileList 对象，FileReader 对象 - ♥'],
+            ['9-BOM/13-fd.md', '第13节 表单，FormData 对象 - ♥'],
+            ['9-BOM/14-IndexedDB.md', '第14节 IndexedDB API'],
+            ['9-BOM/15-webWorker.md', '第15节 Web Worker'],
+            ['9-BOM/16-code.md', '第16节 手撕代码  - ♥'],
+          ]
+        },
+        {
+          title: '附录：网页元素接口',
+          collapsable: true,
+          children: [
+            ['HTML/1-a.md','<a>']
+          ]
+        }
+      ],
+      '/javascript-4v/': [
+        {
+          // title: '第一章 JavaScript简介',
+          collapsable: false,
+          children: [
+            ['1', '第1节 JavaScript基础']
           ]
         }
       ],

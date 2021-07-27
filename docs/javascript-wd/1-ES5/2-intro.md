@@ -251,3 +251,9 @@ type.isRegExp(/abc/) // true
   ```js
   Object.prototype.toString.call(value)
   ```
+
+## 6、总结
+- 数据类型的种类
+- `typeof` 命令，返回值的数据类型，只能判断`number string boolean undefined function`几个类型
+- `instanceof`命令，左边为实例对象，右边为构造函数，返回布尔值。原理：构造函数的原型是否在实例对象的原型上。
+- `Object.prototype.toString.call`判断所有值的数据类型,返回值的类型字符串。

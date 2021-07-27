@@ -47,11 +47,30 @@
 懒加载的实现**原理**是，将页面上的图片的 `src` 属性设置为空字符串，将图片的真实路径保存在一个自定义属性中，当页面滚动的时候，进行判断，如果图片进入页面可视区域内，则从自定义属性中取出真实路径赋值给图片的 `src` 属性，以此来实现图片的延迟加载。
 
 ## ☆-优雅降级和渐进增强
+[你能描述一下渐进增强和优雅降级之间的不同吗?（面试题）](https://www.cnblogs.com/iceflorence/archive/2017/03/27/6625466.html#:~:text=%E5%8C%BA%E5%88%AB%EF%BC%9A%E4%BC%98%E9%9B%85%E9%99%8D%E7%BA%A7%E6%98%AF,%E6%9C%AA%E6%9D%A5%E7%8E%AF%E5%A2%83%E7%9A%84%E9%9C%80%E8%A6%81%E3%80%82)
+
+- 扩展 [css-transition](https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Transitions/Using_CSS_transitions)
+
 **渐进增强**( `progressive enhancement`)：针对低版本浏览器进行构建页面，保证最基本的功能，
-然后再针对高级浏览器进行效果、交互等改进和追加功能达到更好的用户体验。
+然后再针对高级浏览器进行效果、交互等改进和追加功能达到更好的用户体验。[扩展](https://www.zhangxinxu.com/wordpress/2010/04/css-%e6%b8%90%e8%bf%9b%e5%a2%9e%e5%bc%ba%e5%9c%a8web%e5%88%b6%e4%bd%9c%e4%b8%ad%e5%b8%b8%e8%a7%81%e5%ba%94%e7%94%a8%e4%b8%be%e4%be%8b/)
+```js
+.transition{
+  -webkit-transition: all .5s;
+     -moz-transition: all .5s;
+       -o-transition: all .5s;
+          transition: all .5s;  
+}
+```
 
 **优雅降级**(`graceful degradation`) ：一开始就构建完整的功能，然后再针对低版本浏览器进行兼容。
-
+```js
+.transition{
+　　     transition: all .5s;
+　　  -o-transition: all .5s;
+  　-moz-transition: all .5s;
+ -webkit-transition: all .5s;
+}
+```
 **区别**：
 - (1) 优雅降级是从复杂的现状开始，并试图减少用户体验的供给
 - (2) 渐进增强则是从一个非常基础的，能够起作用的版本开始，并不断扩充，以适应未来环境的需要
