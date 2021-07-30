@@ -22,10 +22,10 @@ module.exports = {
         text: '高级前端',
         link: '/kkb/'
       },
-      {
-        text: '前端资源',
-        link: '/resource/'
-      },
+      // {
+      //   text: '前端资源',
+      //   link: '/resource/'
+      // },
       // {
       //   text: '全栈进阶',
       //   link: '/full-stack/'
@@ -34,24 +34,28 @@ module.exports = {
       //   text: '算法',
       //   link: '/algorithm/'
       // },
+      // {
+      //   text: 'JavaScript深入简出',
+      //   link: '/javascript/'
+      // },
       {
-        text: 'JavaScript深入简出',
-        link: '/javascript/'
-      },
-      {
-        text: 'JavaScript教程(ES5)-网道',
+        text: 'JavaScript教程(ES5)',
         link: '/javascript-wd/'
       },
-      {
-        text: 'JavaScript高级程序设计(第四版) - 学习笔记',
-        link: '/javascript-4v/'
-      },
-      {
-        text: 'HTTP权威指南',
-        link: '/http/'
-      },
+      // {
+      //   text: 'JavaScript高级程序设计(第四版) - 学习笔记',
+      //   link: '/javascript-4v/'
+      // },
+      // {
+      //   text: 'HTTP权威指南',
+      //   link: '/http/'
+      // },
       // {text: 'categories', link: '/categories/'},
       // {text: 'components', link: '/components/'},
+      {
+        text: 'ES6 教程',
+        link: '/ECMAScript6/'
+      }
     ],
     sidebar: {
       '/kkb/': [{
@@ -382,6 +386,17 @@ module.exports = {
           ]
         }
       ],
+      '/ECMAScript6/': [
+        {
+          title: 'ECMAScript 6 教程',
+          collapsable: false,
+          children: [
+            ['1-intro.md','第一节 ECMAScript 6 简介'],
+            ['2-let-const.md','第二节 let 和 const 命令'],
+            ['3.md','第三节 变量的结构赋值'],
+          ]
+        }
+      ]
       // '/categories/': [
       //   {
       //     title: 'html',
