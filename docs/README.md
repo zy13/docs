@@ -1,7 +1,7 @@
----
-home: true
-heroImage: /hero.png
-actionText: start now→
-actionLink: /categories/
-footer: Licensed | Copyright © 2018-present
----
+<style>
+  p>code, li>code{
+    background-color: #f5f5f5 !important;
+    color: #da1039 !important;
+    font-family: "Microsoft YaHei" !important;
+  }
+</style>

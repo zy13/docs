@@ -7,11 +7,13 @@
     "doc": "docs"
   },
   "dependencies": {
+    "axios": "^0.21.1",
+    "echarts": "^4.7.0",
     "es-checker": "^1.4.1",
     "vuepress": "^0.10.1"
   },
   "devDependencies": {
-    "jquery": "^3.3.1",
+    "jquery": "^3.5.1",
     "less": "^3.0.4",
     "less-loader": "^4.1.0",
     "nodemon": "^1.17.5"
