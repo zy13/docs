@@ -360,55 +360,37 @@ module.exports = {
           ]
         }
       ],
-      '/javascript-4v/': [
-        {
-          // title: '第一章 JavaScript简介',
-          collapsable: false,
-          children: [
-            ['1', '第1节 JavaScript基础']
-          ]
-        }
-      ],
-      '/http/': [
-        {
-          title: '第一部分 HTTP：Web 的基础',
-          collapsable: true,
-          children: [
-            ['part-1/1-base.md','第1章 Web 的基础'],
-            ['part-1/4-connect.md','第4章 连接管理 - ♥'],
-          ]
-        },
-        {
-          title: '第二部分 HTTP 结构',
-          collapsable: true,
-          children: [
-            ['part-2/8-gateway.md','第8章 集成点：网关、隧道及中继'],
-          ]
-        }
-      ],
       '/ECMAScript6/': [
         {
           title: 'ECMAScript 6 教程',
           collapsable: false,
           children: [
-            ['1-intro.md','第一节 ECMAScript 6 简介'],
-            ['2-let-const.md','第二节 let 和 const 命令'],
-            ['3.md','第三节 变量的解构赋值'],
-            ['4.md','第四节 字符串的扩展'],
-            ['5.md','第五节 字符串的新增方法'],
-            ['6.md','第六节 正则的扩展'],
-            ['7.md','第七节 数值的扩展'],
-            ['8.md','第八节 函数的扩展'],
-            ['9.md','第九节 数组的扩展'],
-            ['10.md','第十节 对象的扩展'],
-            ['11.md','第十一节 对象的新增方法'],
-            ['12.md','第十二节 运算符的扩展'],
-            ['13.md','第十三节 Symbol - 原始数据类型'],
-            ['14-Set.md','第十四节 Set 数据解构'],
-            ['15-Map.md','第十五节 Map 数据解构'],
-            ['16-Proxy.md','第十六节 Proxy'],
-            ['17-Reflect.md','第十七节 Reflect'],
-            ['18-Promise.md','第十八节 Promise对象'],
+            ['1-intro.md','第1节 ECMAScript 6 简介'],
+            ['2-let-const.md','第2节 let 和 const 命令'],
+            ['3.md','第3节 变量的解构赋值'],
+            ['4.md','第4节 字符串的扩展'],
+            ['5.md','第5节 字符串的新增方法'],
+            ['6.md','第6节 正则的扩展'],
+            ['7.md','第7节 数值的扩展'],
+            ['8.md','第8节 函数的扩展'],
+            ['9.md','第9节 数组的扩展'],
+            ['10.md','第10节 对象的扩展'],
+            ['11.md','第11节 对象的新增方法'],
+            ['12.md','第12节 运算符的扩展'],
+            ['13.md','第13节 Symbol - 原始数据类型'],
+            ['14-Set.md','第14节 Set 数据解构'],
+            ['15-Map.md','第15节 Map 数据解构'],
+            ['16-Proxy.md','第16节 Proxy'],
+            ['17-Reflect.md','第17节 Reflect'],
+            ['18-Promise.md','第18节 Promise对象'],
+            ['19.md','第19节 Iterator 和 for...of 循环'],
+            ['20-generator.md','第20节 Generator 函数的语法'],
+            ['21-generator.md','第21节 Generator 函数的异步应用'],
+            ['22-Thunk.md','第22节 Thunk 函数'],
+            ['23-co.md','第23节 co 模块'],
+            ['24-async.md','第24节 async 函数 - ES2017'],
+            ['25-class.md','第25节 Class 的基本语法'],
+            ['26-class.md','第26节 Class 的继承'],
           ]
         }
       ]
