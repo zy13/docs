@@ -141,6 +141,84 @@ function Observer(data) {
 Observer(obj1)
 ```
 
+### demo
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app"> {} {{{message}} </div>
+  <script>
+    /**
+     * 大胡子语法
+     * Vue就是vm视图模型，将数据绑定到vm中，
+     * model数据模型，就是传入vm的配置数据
+     * 把数据渲染到视图中：
+     * - 找到大胡子语法，将大胡子中的变量匹配出来，
+     * - 在data中找到响应的变量，然后替换
+     * 数据发生变化的时候defineProperty, 
+     *
+    */ 
+    class Vue extends EventTarget{
+      constructor(options) {
+        super()
+        this.el = options.el
+        this.data = options.data
+        this.init()
+      }
+      init() {
+        this.domCompiled()
+        this.observer()
+      }
+      domCompiled() {
+        const dom = document.querySelector(this.el)
+        const {textContent} = dom
+        // 使用正则表达式匹配出大胡子语法
+        const regexp = /\{\{\s*([a-zA-Z_]+\w*)\s*\}\}/.test(textContent) 
+        if (regexp) {
+          const param = RegExp.$1 // 匹配第一组，获取变量
+          dom.textContent = this.data[param]
+          this.addEventListener(param, function(e) {
+            dom.textContent = e.detail
+          }) 
+        }
+      }
+      observer() {
+        const _this = this
+        Object.keys(_this.data).forEach(key => {
+          let value = _this.data[key]
+          Object.defineProperty(this.data, key, {
+            get() {
+              console.log('get',value);
+              return value
+            },
+            set(newVal) {
+              console.log('set', newVal, value);
+              _this.dispatchEvent(new CustomEvent(key, {
+                'detail': newVal
+              }))
+              value = newVal
+            }
+          })
+        })
+      }
+    }
+    const app = new Vue({
+      el: '#app',
+      data: {
+        message: 'hello world'
+      }
+    })
+    window.app = app    
+  </script>
+</body>
+</html>
+```
 ## 3、数据劫持（vue3） - Proxy
 
 [Proxy](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy)对象用于创建一个对象的代理，从而实现基本操作的拦截和自定义（如属性查找、赋值、枚举、函数调用等）。

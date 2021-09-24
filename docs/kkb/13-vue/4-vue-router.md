@@ -472,11 +472,18 @@ Vue的History操作与[浏览器的History的API](https://developer.mozilla.org/
 
 路由守卫本质是在不断阶段拦截路由进行逻辑处理的钩子，分为全局的、单个路由独享的、组件级别的
 
-- 全局前置守卫
-- 全局解析守卫
-- 全局后置钩子
-- 路由独享的守卫
-- 组件内的守卫
+- [全局前置守卫](#全局前置守卫)
+  - `router.beforEach`
+- [全局解析守卫](#全局解析守卫)
+ - `router.beforeResolve`
+- [全局后置钩子](#全局后置钩子)
+ - `router.afterEach`
+- [路由独享的守卫](#路由独享的守卫)
+ - `beforeEnter`
+- [组件内的守卫](#组件内的守卫)
+  - `beforeRouteEnter`
+  - `beforeRouteUpdate`
+  - `beforeRouteLeave`
 
 ### 全局前置守卫
 
