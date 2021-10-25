@@ -943,3 +943,206 @@ function createWebService(baseUrl) {
   });
 }
 ```
+
+## 21. Proxy 使用案例
+
+- 日化最前线非微信端，用户信息页
+- 表单数据初始化
+- 表单数据存取监听
+
+```js
+import { post } from '../../../common/js/request.js'
+import { $, show } from '../../../common/js/dom.js'
+import MobileSelect from '../../../common/js/mobileSelect.js'
+import layer from '../../../common/js/layer.js'
+import Confirm from '../../../components/confirm/confirm'
+import wxLogin from '../../../components/wx-login/wx-login'
+import SelectBox from '../select-box/select-box.js'
+
+export default class User {
+  constructor() {
+    this.win = window
+    this.inputs = document.querySelectorAll('.right input')
+    this.selectBoxs = document.querySelectorAll('.selectBox')
+    this.radios = document.querySelectorAll('.radios .radio')
+    this.selectMobiles = document.querySelectorAll('.info .selectMobile')
+    this.submitBtn = document.querySelector('.submit-btn')
+    this.selbox = new SelectBox()
+    this.layer = layer
+    this.wxLogin = wxLogin
+    this.post = {}
+    this.init()
+  }
+  init() {
+    this.proxyPost()
+    this.checkInput()
+    this.checkRadio()
+    this.checkSelectBox()
+    this.checkSelectMobile()
+    this.submit()
+  }
+  proxyPost() {
+    new Proxy(this.post, {
+      get (target, key, receiver) {
+        return Reflect.get(...arguments)
+      },
+      set (target, key, newValue, receiver) {
+        Reflect.set(...arguments)
+      }
+    })
+  }
+  checkInput() {
+    this.inputs.forEach(input => {
+      const key = input.getAttribute('name')
+      this.post[key] = input.value
+      input.onchange = e => {
+        this.post[key] = e.target.value
+      }
+    })
+  }
+  checkRadio() {
+    this.radios.forEach(radio => {
+      let isActive = radio.classList.contains('active')
+      if (isActive) {
+        this.post['sex'] = radio.dataset.sex
+      }
+      radio.onclick = e => {
+        const el = e.currentTarget
+        isActive = el.classList.contains('active')
+        if (!isActive) {
+          el.classList.add('active')
+          el.nextSibling && el.nextSibling.classList.remove('active')
+          el.previousSibling && el.previousSibling.classList.remove('active')
+        }
+        this.post['sex'] = el.dataset.sex
+      }
+    })
+  }
+  checkSelectBox() {
+    this.selectBoxs.forEach(select => {
+      const key = select.getAttribute('data-key')
+      this.post[key] = select.getAttribute('data-value')
+      select.onclick = e => {
+        this.selbox.open(key, res => {
+          this.post[key] = res.vals
+          if (res.other) {
+            this.post[key + '_other'] = res.other
+          }
+          if (select.firstChild) {
+            select.firstChild.textContent = res.names
+            return
+          }
+          select.textContent = res.names
+        })
+      }
+    })
+  }
+  checkSelectMobile() {
+    this.selectMobiles.forEach(select => {
+      this.initCity(select, res => {
+        this.post['province_id'] = res[0].id
+        this.post['city_id'] = res[1].id
+      })
+    })
+  }
+  initCity(cur, fn) {
+    const ids = JSON.parse(cur.dataset.id)
+    const provinceId = ids[0]
+    const cityId = ids[1]
+    let cityData = []
+    let curIndex = [0, 0]
+    this.post['province_id'] = provinceId
+    this.post['city_id'] = cityId
+    post('/user/m/area').then(rs => {
+      cityData = JSON.stringify(rs.result.list).replace(/"title":/g, '"value":')
+      cityData = cityData.replace(/"children":/g, '"childs":')
+      cityData = JSON.parse(cityData)
+      for (let i = 0; i < cityData.length; i++) {
+        if (cityData[i] === provinceId) {
+          curIndex[0] = i
+          for (let j = 0; j < cityData[i].childs.length; j++) {
+            if (cityData[j] === cityId) {
+              curIndex[1] = j
+              break
+            }
+          }
+          break
+        }
+      }
+      new MobileSelect({
+        trigger: '#areas',
+        wheels: [{
+          data: cityData
+        }],
+        position: [curIndex[0], curIndex[1]],
+        callback: (indexArr, data) => {
+          fn(data)
+        }
+      })
+    })
+  }
+  validate() {
+    const regMobile = /^1[3456789]\d{9}$/
+    const regEmail = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/
+    if (this.post.mobile && !regMobile.test(this.post.mobile)) {
+      this.layer.open({
+        content: '手机号码格式不正确',
+        skin: 'msg',
+        time: 1.5
+      })
+      return false
+    }
+    if (this.post.email && !regEmail.test(this.post.email)) {
+      this.layer.open({
+        content: '邮箱格式不正确',
+        skin: 'msg',
+        time: 1.5
+      })
+      return false
+    }
+    return true
+  }
+  submit() {
+    this.submitBtn.onclick = e => {
+      const data = {}
+      if (!this.validate()) {
+        return false
+      }
+      Object.keys(this.post).forEach(key => {
+        if (this.post[key]) {
+          data[key] = this.post[key]
+        }
+      })
+      post('/user/pc/updateinfo', {
+        post: data
+      }).then(rs => {
+        if (rs.result.error || rs.result.code === 400) {
+          const content = rs.result.error ? rs.result.error.message : rs.result.msg
+          this.layer.open({
+            content: content,
+            skin: 'msg',
+            time: 1.5
+          })
+          return false
+        }
+        if (rs.code === 201) {
+          // 微信登陆二维码
+          const wrapper = $('.code_wrapper')
+          show(wrapper)
+          wxLogin.open(rs.result.data.state)
+        } else {
+          // window.location.href = '/kw-mine'
+          new Confirm({
+            content: '保存成功',
+            type: 1,
+            time: 1500
+          })
+          this.win.setTimeout(() => {
+            this.win.location.href = '/kw-mine'
+          }, 1500)
+        }
+      })
+    }
+  }
+}
+```

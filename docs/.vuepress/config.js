@@ -18,7 +18,12 @@ module.exports = {
     }]
   ],
   themeConfig: {
-    nav: [{
+    nav: [
+      {
+        text: 'H5常用组件',
+        link: '/H5/'
+      },
+      {
         text: '高级前端',
         link: '/kkb/'
       },
@@ -62,6 +67,12 @@ module.exports = {
       }
     ],
     sidebar: {
+      '/H5/': [{
+        collapsable: false,
+        children: [
+          ['page-layout', '一、页面组件']
+        ]
+      }],
       '/kkb/': [{
           title: '第一章 ECMAScript6基础',
           collapsable: true,
@@ -164,7 +175,10 @@ module.exports = {
             ['13-vue/4-vue-router.md', '第4节 vue-router'],
             ['13-vue/5-vuex.md', '第5节 vuex'],
             ['13-vue/6-project-vue-vueRouter-vuex.md', '第6节 项目应用-vue-vuerouter-vuex'],
-            ['13-vue/7-vue3.x.md', '第7节 vue3.x基础'],
+            ['13-vue/7-vue3.md', '第7节 vue3新特性'],
+            ['13-vue/8-vue3.md', '第8节 vue3.x基础'],
+            ['13-vue/9-vue3.md', '第9节 vue3.x基础'],
+            ['13-vue/10-vue3.md', '第10节 vue3.x基础'],
             ['13-vue/problems.md', 'vue 问题集锦'],
           ]
         },
