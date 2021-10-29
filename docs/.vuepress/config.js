@@ -20,8 +20,8 @@ module.exports = {
   themeConfig: {
     nav: [
       {
-        text: 'H5常用组件',
-        link: '/H5/'
+        text: '项目汇总',
+        link: '/projects/'
       },
       {
         text: '高级前端',
@@ -67,11 +67,24 @@ module.exports = {
       }
     ],
     sidebar: {
-      '/H5/': [{
-        collapsable: false,
-        children: [
-          ['page-layout', '一、页面组件']
-        ]
+      '/projects/': [{
+          title: 'CSS汇总',
+          collapsable: true,
+          children: [
+            ['CSS/page-layout.md', '一、页面组件']
+          ]
+        }, {
+          title: 'JS汇总',
+          collapsable: true,
+          children: [
+            ['JS/bs-storage.md', '一、设置有期限的localStroage']
+          ]
+        }, {
+          title: '项目汇总',
+          collapsable: true,
+          children: [
+            ['project/rh.md', '一、项目汇总']
+          ]
       }],
       '/kkb/': [{
           title: '第一章 ECMAScript6基础',
@@ -367,7 +380,7 @@ module.exports = {
             ['9-BOM/4-cookie.md', '第4节 Cookie  - ♥'],
             ['9-BOM/5-xhr.md', '第5节 XMLHttpRequest 对象 - ♥'],
             ['9-BOM/6-corsl.md', '第6节 同源限制 - 跨域汇总 - ♥'],
-            ['9-BOM/7-cors.md', '第7节 CORS 通信 - 根本解决方法 - ♥'],
+            ['9-BOM/7-cors.md', '第7节 CORS 通信 - 跨域根本解决方法 - ♥'],
             ['9-BOM/8-storage.md', '第8节 Storage 接口 - ♥'],
             ['9-BOM/9-history.md', '第9节 History 对象'],
             ['9-BOM/10-luu.md', '第10节 Location 对象，URL 对象，URLSearchParams 对象'],

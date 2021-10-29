@@ -627,7 +627,7 @@ requestIdleCallback(processPendingAnalyticsEvents, { timeout: 2000 });
 - error 事件和 onerror 属性：[link](2-window.html#_4-2-error-事件和-onerror-属性)
 - window 对象的事件监听属性：[link](2-window.html#_4-3-window-对象的事件监听属性)
 
-### 4.1 load 事件和 onload 属性
+## 5、load 事件和 onload 属性
 `load`事件发生在文档在浏览器窗口加载完毕时。`window.onload`属性可以指定这个事件的回调函数。
 ```js
 // 在网页加载完毕后，获取指定元素并进行处理。
@@ -639,7 +639,7 @@ window.onload = function() {
   }
 };
 ```
-### 4.2 error 事件和 onerror 属性
+## 6、error 事件和 onerror 属性
 浏览器脚本发生错误时，会触发`window`对象的`error`事件。我们可以通过`window.onerror`属性对该事件指定回调函数。
 ```js
 // 脚本报错时触发
@@ -681,7 +681,7 @@ Access-Control-Allow-Origin: *
 HTTP 头信息Access-Control-Allow-Credentials -->
 <script crossorigin="use-credentials" src="//example.com/file.js"></script>
 ```
-### 4.3 window 对象的事件监听属性
+## 7、window 对象的事件监听属性
 除了具备元素节点都有的 `GlobalEventHandlers` 接口，`window`对象还具有以下的事件监听函数属性。
 - `window.onafterprint`：afterprint事件的监听函数。
 - `window.onbeforeprint`：beforeprint事件的监听函数。
@@ -698,7 +698,7 @@ HTTP 头信息Access-Control-Allow-Credentials -->
 - `window.onstorage`：storage事件的监听函数。
 - `window.onunhandledrejection`：未处理的 Promise 对象的reject事件的监听函数。
 - `window.onunload`：unload事件的监听函数。
-## 5、多窗口操作
+## 8、多窗口操作
 - 窗口的引用：[link](2-window.html#_5-1-窗口的引用)
 - iframe 元素：[link](2-window.html#_5-2-iframe-元素)
 - window.frames 属性：[link](2-window.html#_5-3-window-frames-属性)
@@ -729,7 +729,7 @@ window.parent.history.back();
 - `_top`：顶层窗口
 - `_parent`：父窗口
 - `_blank`：新窗口
-### 5.2 iframe 元素
+## 9、iframe 元素
 对于`iframe`嵌入的窗口，拿到该窗口的 `DOM` 节点，然后使用`contentWindow`属性获得`iframe`节点包含的`window`对象和`document`对象。
 ```js
 // frame.contentWindow可以拿到子窗口的window对象
@@ -766,7 +766,7 @@ if (frameEl) {
 }
 ```
 
-### 5.3 window.frames 属性
+## 10、window.frames 属性
 
 `window.frames`属性返回一个类似数组的对象，成员是所有子窗口的`window`对象。可以使用这个属性，实现窗口之间的互相引用。比如，`frames[0]`返回第一个子窗口，`frames[1].frames[2]`返回第二个子窗口内部的第三个子窗口，`parent.frames[1]`返回父窗口的第二个子窗口。
 

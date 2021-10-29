@@ -2,7 +2,7 @@
 
 `CORS` 是一个 `W3C` 标准，全称是“跨域资源共享”（`Cross-origin resource sharing`）。它允许浏览器向跨域的服务器，发出`XMLHttpRequest`请求，从而克服了 `AJAX` 只能同源使用的限制。
 
-## 1、简介
+## 1、CORS 简介
 `CORS` 需要浏览器和服务器同时支持。目前，所有浏览器都支持该功能。
 
 整个 `CORS` 通信过程，都是浏览器自动完成，不需要用户参与。
@@ -10,7 +10,7 @@
 - 浏览器一旦发现 `AJAX` 请求跨域，就会自动添加一些附加的头信息，有时还会多出一次附加的请求，但用户不会有感知。
 
 因此，实现 `CORS` 通信的**关键是服务器**。只要服务器实现了 `CORS` 接口，就可以跨域通信。
-## 2、两种请求
+## 2、CORS 的两种请求
 `CORS` 请求分成两类：简单请求（`simple request`）和非简单请求（`not-so-simple request`）。
 
 只要同时满足以下两大条件，就属于**简单请求**。
@@ -33,10 +33,10 @@ Content-Type：application/x-www-form-urlencoded、multipart/form-data、text/pl
 这样划分的原因是，**表单在历史上一直可以跨域发出请求**。
 - 简单请求就是表单请求，浏览器沿袭了传统的处理方式，不把行为复杂化，否则开发者可能转而使用表单，规避 `CORS` 的限制。
 - 对于非简单请求，浏览器会采用新的处理方式。
-## 3、简单请求
+## 3、简单请求 - 基本流程
 - 基本流程：[link](./7-cors.html#_3-1-基本流程)
 - withCredentials 属性：[link](./7-cors.html#_3-2-withcredentials-属性)
-### 3.1 基本流程
+### 基本流程
 对于简单请求，浏览器直接发出 `CORS` 请求。具体来说，就是在头信息之中，增加一个`Origin`字段。
 
 - 简单请求 - 自动在头信息添加`Origin`字段
@@ -82,8 +82,8 @@ Content-Type: text/html; charset=utf-8
 - `Pragma`
 
 如果想拿到其他字段，就必须在`Access-Control-Expose-Headers`里面指定。上面的例子指定，`getResponseHeader('FooBar')`可以返回`FooBar`字段的值。
-### 3.2 withCredentials 属性
-上面说到，`CORS` 请求默认不包含 `Cookie` 信息（以及 `HTTP` 认证信息等），这是为了降低 `CSRF` 攻击的风险。但是某些场合，服务器可能需要拿到 `Cookie`，这时需要服务器显式指定`Access-Control-Allow-Credentials`字段，告诉浏览器可以发送 `Cookie`。
+## 4、withCredentials 属性
+上面说到，`CORS` 请求默认不包含 `Cookie` 信息（以及 `HTTP` 认证信息等），这是为了降低 `CSRF` （CrossSiteRequestForgery，跨站点伪造请求攻击）攻击的风险。但是某些场合，服务器可能需要拿到 `Cookie`，这时需要服务器显式指定`Access-Control-Allow-Credentials`字段，告诉浏览器可以发送 `Cookie`。
 ```js
 Access-Control-Allow-Credentials: true
 ```
@@ -106,7 +106,7 @@ xhr.withCredentials = false;
 - 预检请求的回应：[link](./7-cors.html#_4-2-预检请求的回应)
 - 浏览器的正常请求和回应：[link](./7-cors.html#_4-3-浏览器的正常请求和回应)
 
-### 4.1 预检请求
+## 5、预检请求
 **非简单请求**是那种**对服务器提出特殊要求的请求**，比如请求方法是`PUT`或`DELETE`，或者`Content-Type`字段的类型是`application/json`。
 
 非简单请求的 `CORS` 请求，会在正式通信之前，增加一次 `HTTP` 查询请求，称为`preflight`**预检请求**。
@@ -145,7 +145,7 @@ User-Agent: Mozilla/5.0...
 
 该字段是一个逗号分隔的字符串，指定浏览器 `CORS` 请求会额外发送的头信息字段，上例是`X-Custom-Header`。
 
-### 4.2 预检请求的回应
+## 5、预检请求的回应
 服务器收到“预检”请求以后，检查了
 - Origin
 - Access-Control-Request-Method
@@ -206,7 +206,7 @@ Access-Control-Max-Age: 1728000
 #### （4）Access-Control-Max-Age
 
 该字段可选，用来指定本次预检请求的有效期，单位为秒。上面结果中，有效期是`20`天（`1728000`秒），即允许缓存该条回应`1728000`秒（即`20`天），在此期间，不用发出另一条预检请求。
-### 4.3 浏览器的正常请求和回应
+## 6、浏览器的正常请求和回应
 一旦服务器通过了“预检”请求，以后每次浏览器正常的 `CORS` 请求，就都跟简单请求一样，会有一个`Origin`头信息字段。服务器的回应，也都会有一个`Access-Control-Allow-Origin`头信息字段。
 
 #### “预检”请求后，浏览器的正常 `CORS` 请求。
@@ -227,7 +227,7 @@ Access-Control-Allow-Origin: http://api.bob.com
 Content-Type: text/html; charset=utf-8
 ```
 上面头信息中，`Access-Control-Allow-Origin`字段是每次回应都必定包含的。
-## 5、与 JSONP 的比较
+## 5、CORS 与 JSONP 的比较
 - `CORS` 与 `JSONP` 的使用目的相同，但是比 `JSONP` 更强大。
 - `JSONP` 只支持`GET`请求，`CORS` 支持所有类型的 `HTTP` 请求。
 - `JSONP` 的优势在于支持老式浏览器，以及可以向不支持 `CORS` 的网站请求数据。

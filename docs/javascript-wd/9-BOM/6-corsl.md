@@ -2,12 +2,12 @@
 
 浏览器安全的基石是“同源政策”（same-origin policy）。很多开发者都知道这一点，但了解得不全面。
 
-## 1、概述
+### 概述
 - 含义：[link](./6-corsl.html#_1-1-含义)
 - 目的：[link](./6-corsl.html#_1-2-目的)
 - 限制范围：[link](./6-corsl.html#_1-3-限制范围)
 
-### 1.1 含义
+## 1、同源政策含义
 `1995`年，同源政策由 `Netscape` 公司引入浏览器。目前，所有浏览器都实行这个政策。
 
 最初，它的含义是指，`A` 网页设置的 `Cookie`，`B` 网页不能打开，除非这两个网页“同源”。所谓“同源”指的是“三个相同”。
@@ -24,7 +24,7 @@
 - `https://www.example.com/dir/page.html`：不同源（协议不同）
 
 **注意，标准规定端口不同的网址不是同源（比如`8000`端口和`8001`端口不是同源），但是浏览器没有遵守这条规定。实际上，同一个网域的不同端口，是可以互相读取 `Cookie` 的**。
-### 1.2 目的
+## 2、同源政策的目的
 同源政策的目的，是**为了保证用户信息的安全，防止恶意的网站窃取数据**。
 
 设想这样一种情况：
@@ -34,7 +34,7 @@
 因为浏览器同时还规定，**提交表单不受同源政策的限制**。
 
 由此可见，同源政策是必需的，否则 `Cookie` 可以共享，互联网就毫无安全可言了。
-### 1.3 限制范围
+## 3、同源限制范围
 
 随着互联网的发展，同源政策越来越严格。目前，如果非同源，共有**三种行为受到限制**。
 - （1） 无法读取非同源网页的 `Cookie`、`LocalStorage` 和 `IndexedDB`。
@@ -60,10 +60,10 @@
 
 虽然这些限制是必要的，但是有时很不方便，合理的用途也受到影响。下面介绍如何规避上面的限制。
 
-## 2、Cookie
+## 4、Cookie介绍
 `Cookie` 是服务器写入浏览器的一小段信息，只有同源的网页才能共享。如果两个网页一级域名相同，只是次级域名不同，浏览器允许通过设置`document.domain`共享 `Cookie`。
 
-### document.domain解决跨域问题
+## 5、document.domain解决跨域问题
 
 例如，`A` 网页的网址是`http://w1.example.com/a.html`，`B` 网页的网址是`http://w2.example.com/b.html`，那么只要设置相同的`document.domain`，两个网页就可以共享 `Cookie`。因为浏览器通过`document.domain`属性来检查是否同源。
 ```JS
@@ -81,7 +81,7 @@ var allCookie = document.cookie;
 ```
 **注意，这种方法只适用于 Cookie 和 iframe 窗口，LocalStorage 和 IndexedDB 无法通过这种方法，规避同源政策，而要使用下文介绍 PostMessage API。**
 
-### 服务器解决跨域问题
+## 6、服务器解决跨域问题
 
 另外，服务器也可以在设置 `Cookie` 的时候，指定 `Cookie` 的所属域名为一级域名，比如`.example.com`。
 ```js
@@ -89,7 +89,7 @@ var allCookie = document.cookie;
 Set-Cookie: key=value; domain=.example.com; path=/
 ```
 
-## 3、iframe 和多窗口通信
+## 7、iframe 和多窗口通信
 - 片段识别符：[link](./6-corsl.html#_3-1-片段识别符)
 - window.postMessage()：[link](./6-corsl.html#_3-2-window-postmessage)
 - LocalStorage：[link](./6-corsl.html#_3-2-window-postmessage)
@@ -121,7 +121,7 @@ window.parent.document.body
 - 片段识别符（`fragment identifier`）
 - 跨文档通信API（`Cross-document messaging`）
 
-### 3.1 片段识别符
+## 8、片段识别符
 片段标识符（`fragment identifier`）指的是，`URL` 的`#`号后面的部分，比如`http://example.com/x.html#fragment`的`#fragment`。**如果只是改变片段标识符，页面不会重新刷新。**
 #### 父窗口可以把信息，写入子窗口的片段标识符。
 ```js
@@ -140,7 +140,7 @@ function checkMessage() {
 ```js
 parent.location.href = target + '#' + hash;
 ```
-### 3.2 window.postMessage()
+## 9、window.postMessage() - ♥
 上面的这种方法属于破解，`HTML5` 为了解决这个问题，引入了一个全新的`API`：跨文档通信 `API`（`Cross-document messaging`）。这个 `API` 为`window`对象新增了一个`window.postMessage`方法，允许跨窗口通信，不论这两个窗口是否同源。
 
 #### postMessage方法 - 发送消息
@@ -200,7 +200,7 @@ function receiveMessage(event) {
   }
 }
 ```
-### 3.3 LocalStorage
+## 10、LocalStorage - ♥
 通过`window.postMessage`，读写其他窗口的 `LocalStorage` 也成为了可能。
 
 ```js
@@ -221,7 +221,7 @@ window.onmessage = function(e) {
   localStorage.setItem(payload.key, JSON.stringify(payload.data));
 };
 ```
-#### 加强版父子窗口通信
+## 11、加强版父子窗口通信 - ♥
 ```js
 // 加强版的父窗口发送消息代码如下。
 var win = document.getElementsByTagName('iframe')[0].contentWindow;
@@ -260,12 +260,12 @@ window.onmessage = function(e) {
   }
 };
 ```
-## 4、AJAX
+## 12、AJAX相关的跨域解决方案
 - JSONP：[link](./6-corsl.html#_4-1-jsonp)
 - WebSocket：[link](./6-corsl.html#_4-2-websocket)
 - CORS：[link](./6-corsl.html#_4-3-cors)
 
-### 4.1 JSONP - JSON.parse
+## 13、JSONP - JSON.parse - ♥
 **`JSONP` 是服务器与客户端跨源通信的常用方法。最大特点就是简单易用，没有兼容性问题，老式浏览器全部支持，服务端改造非常小。`JSONP`只能发`get`请求，它的做法如下。**
 
 - **第一步**，网页添加一个`<script>`元素，向服务器请求一个脚本，这不受同源政策限制，可以跨域请求。
@@ -303,7 +303,7 @@ foo({
 });
 ```
 由于`<script>`元素请求的脚本，直接作为代码运行。这时，只要浏览器定义了`foo`函数，该函数就会立即调用。作为参数的 `JSON` 数据被视为 `JavaScript` 对象，而不是字符串，因此避免了使用`JSON.parse`的步骤。
-### 4.2 WebSocket
+## 14、WebSocket 介绍
 `WebSocket` 是一种通信协议，使用`ws://`（非加密）和`wss://`（加密）作为协议前缀。该协议不实行同源政策，只要服务器支持，就可以通过它进行跨源通信。
 
 下面是一个例子，浏览器发出的 `WebSocket` 请求的头信息（摘自维基百科）。
@@ -327,5 +327,5 @@ Connection: Upgrade
 Sec-WebSocket-Accept: HSmrc0sMlYUkAGmm5OPpG2HaGWk=
 Sec-WebSocket-Protocol: chat
 ```
-### 4.3 CORS
+## 15、CORS 介绍
 `CORS` 是跨源资源分享（`Cross-Origin Resource Sharing`）的缩写。它是 `W3C` 标准，属于**跨源 `AJAX` 请求的根本解决方法**。相比 `JSONP` 只能发`GET`请求，`CORS` 允许任何类型的请求。

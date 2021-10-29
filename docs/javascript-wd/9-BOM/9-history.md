@@ -1,6 +1,6 @@
 [History 对象](https://www.wangdoc.com/javascript/bom/history.html)
 
-## 1、概述
+## 1、History 对象概述
 `window.history`属性指向 `History` 对象，它表示**当前窗口的浏览历史**。
 
 `History` 对象保存了当前窗口访问过的所有页面网址。
@@ -17,7 +17,7 @@ history.back()
 history.go(-1)
 ```
 浏览器工具栏的“前进”和“后退”按钮，其实就是对 `History` 对象进行操作。
-## 2、属性
+## 2、History 对象的属性
 `History` 对象主要有两个属性。
 
 - `History.length`：当前窗口访问过的网址数量（包括当前网页）
@@ -30,12 +30,12 @@ window.history.length // 1
 // 通常是 undefined，即未设置
 window.history.state // undefined
 ```
-## 3、方法
+## 3、History 对象的方法
 - History.back()、History.forward()、History.go()：[link](./9-history.html#_3-1-history-back-、history-forward-、history-go)
 - History.pushState()：[link](./9-history.html#_3-2-history-pushstate)
 - History.replaceState()：[link](./9-history.html#_3-3-history-replacestate)
 
-### 3.1 History.back()、History.forward()、History.go()
+## 4、History.back()、History.forward()、History.go()
 这三个方法用于在历史之中移动。注意，移动到以前访问过的页面时，页面通常是从浏览器缓存之中加载，而不是重新要求服务器发送新的网页。
 
 #3.2 H
@@ -53,7 +53,7 @@ history.go(-2);
 
 history.go(0); // history.go() 刷新当前页面
 ```
-### 3.2 History.pushState()
+## 5、History.pushState()
 `History.pushState()`方法用于**在历史中添加一条记录**。
 ```js
 // state - 一个与添加的记录相关联的状态对象
@@ -93,7 +93,7 @@ history.state // {foo: "bar"}
 history.pushState(null, '', 'https://twitter.com/hello');
 ```
 上面代码中，`pushState`想要插入一个跨域的网址，导致报错。**这样设计的目的是，防止恶意代码让用户以为他们是在另一个网站上，因为这个方法不会导致页面跳转。**
-### 3.3 History.replaceState()
+## 6、History.replaceState()
 `History.replaceState()`方法用来**修改History对象的当前记录**，其他都与`pushState()`方法一模一样。
 
 假定当前网页是`example.com/example.html`。
@@ -116,7 +116,7 @@ history.back()
 history.go(2)
 // URL 显示为 http://example.com/example.html?page=3
 ```
-## 4、popstate 事件
+## 7、popstate 事件
 每当同一个文档的浏览历史（即`history`对象）出现变化时，就会触发`popstate`事件。**注意，页面第一次加载的时候，浏览器不会触发popstate事件。**
 - 仅仅调用`pushState()`方法或`replaceState()`方法 ，并不会触发该事件，
 - 只有用户点击浏览器倒退按钮和前进按钮，或者使用 `JavaScript` 调用`History.back()`、`History.forward()`、`History.go()`方法时才会触发。
